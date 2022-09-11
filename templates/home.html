@@ -1,30 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if form.errors %}
+        <h1>The city you entered is not valid!</h1>
+    {% endif %}
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center">
-        <div class="form-div">
+        <div class="form">
             <form action="" method="GET">
-                <h2>Enter city name</h2>
+                <h1 class="weather-app"><a href="{% url 'home' %}">Weather App</a></h1>
                 <label for="city "></label>
-                <input type="text" name="city" id="city" placeholder="city...">
-                <input type="submit" value="Check" class="btn btn-outline-success">
+                <input class="css-input" type="text" name="city" id="city" placeholder="Choose a city"
+                       class="form-control"
+                       aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input class="myButton" type="submit" value="Check" class="btn btn-outline-success">
             </form>
         </div>
         {% if context %}
-            <h2>Temperatura: {{ context.temperatura }}{{ context.unitate }}</h2>
-            <div class="descriere">
-                <h2>Descrirere: {{ context.descriere }}</h2>
-                {% if context.descriere == 'În mare parte însorit' %}
-                    <img src="https://cdn-icons-png.flaticon.com/512/2280/2280705.png" alt="in_mare_parte_insorit">
-                {% elif context.descriere == 'Ceață' %}
-                    <img src="https://ssl.gstatic.com/onebox/weather/64/fog.png" alt="ceata">
-                {% elif context.descriere == 'Însorit'%}
-                    <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="insorit">
-                {% endif %}
+            <div class="response">
+                <div style="display: flex; justify-content: center; align-items: center">
+                    <div class="temp-unit">
+                        {{ context.temperatura }}
+                        <span class="unitate">
+                    {{ context.unitate }}
+                    </span>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <div class="descriere">
+                        {{ context.descriere }}
+                        &nbsp;
+
+                        <img src="{{ context.image_url }}"
+                             alt="in_mare_parte_insorit">
+                    </div>
+                </div>
+                <div>
+                    <p class="temp">Precipitation: <span class="data">{{ context.precipitatii }}</span></p>
+                    <p class="temp">Humidity: <span class="data">{{ context.umiditate }}</span></p>
+                    <p class="temp">Location: <span class="data">{{ context.locatie }}</span></p>
+
+                </div>
             </div>
-            <h2>Precipitatii: {{ context.precipitatii }}</h2>
-            <h2>Umiditate: {{ context.umiditate }}</h2>
-            <h2>Locatie: {{ context.locatie }}</h2>
         {% endif %}
     </div>
 
