@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center">
+        <div class="form-div">
+            <form action="" method="GET">
+                <h2>Enter city name</h2>
+                <label for="city "></label>
+                <input type="text" name="city" id="city" placeholder="city...">
+                <input type="submit" value="Check" class="btn btn-outline-success">
+            </form>
+        </div>
+        {% if context %}
+            <h2>Temperatura: {{ context.temperatura }}{{ context.unitate }}</h2>
+            <div class="descriere">
+                <h2>Descrirere: {{ context.descriere }}</h2>
+                {% if context.descriere == 'În mare parte însorit' %}
+                    <img src="https://cdn-icons-png.flaticon.com/512/2280/2280705.png" alt="in_mare_parte_insorit">
+                {% elif context.descriere == 'Ceață' %}
+                    <img src="https://ssl.gstatic.com/onebox/weather/64/fog.png" alt="ceata">
+                {% elif context.descriere == 'Însorit'%}
+                    <img src="https://ssl.gstatic.com/onebox/weather/64/sunny.png" alt="insorit">
+                {% endif %}
+            </div>
+            <h2>Precipitatii: {{ context.precipitatii }}</h2>
+            <h2>Umiditate: {{ context.umiditate }}</h2>
+            <h2>Locatie: {{ context.locatie }}</h2>
+        {% endif %}
+    </div>
+
+
+
+
+{% endblock %}
